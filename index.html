@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Master Study Guide — Electrical Engineering</title>
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --card: #181c26;
+    --border: #232840;
+    --accent: #e8b86d;
+    --accent2: #6d9ee8;
+    --accent3: #e86d9e;
+    --accent4: #6de8b8;
+    --text: #dce3f0;
+    --muted: #8891a8;
+    --heading: #f0e6d0;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #0a0c12 0%, #111523 50%, #0d1020 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 40px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(232,184,109,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 50%, rgba(109,158,232,0.07) 0%, transparent 60%);
+  }
+  .hero-badge {
+    display: inline-block;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 2px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    font-weight: 900;
+    color: var(--heading);
+    line-height: 1.15;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero p {
+    color: var(--muted);
+    font-size: 1rem;
+    font-style: italic;
+    max-width: 600px;
+    margin: 0 auto 30px;
+    position: relative;
+  }
+  .hero-stats {
+    display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;
+    position: relative;
+  }
+  .stat {
+    text-align: center;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    padding: 12px 24px;
+    border-radius: 4px;
+  }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--accent); }
+  .stat-label { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+
+  /* LAYOUT */
+  .layout { display: flex; min-height: 100vh; }
+  
+  /* SIDEBAR */
+  .sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 30px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  .sidebar-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0 24px 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+  .toc-unit {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 12px 24px 6px;
+  }
+  .toc-item {
+    display: block;
+    padding: 7px 24px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 1.4;
+    border-left: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .toc-item:hover {
+    color: var(--text);
+    border-left-color: var(--accent);
+    background: rgba(232,184,109,0.05);
+    padding-left: 28px;
+  }
+
+  /* MAIN CONTENT */
+  .main { flex: 1; padding: 50px 50px 80px; max-width: 900px; }
+
+  /* UNIT HEADER */
+  .unit-header {
+    margin: 50px 0 30px;
+    padding: 28px 32px;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    background: var(--card);
+    border-radius: 0 6px 6px 0;
+  }
+  .unit-header.u2 { border-left-color: var(--accent2); }
+  .unit-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .unit-header.u2 .unit-tag { color: var(--accent2); }
+  .unit-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem;
+    color: var(--heading);
+  }
+
+  /* TOPIC CARD */
+  .topic {
+    margin-bottom: 60px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--card);
+  }
+  .topic-header {
+    padding: 18px 28px;
+    background: rgba(232,184,109,0.06);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .topic-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    background: rgba(232,184,109,0.1);
+    border: 1px solid rgba(232,184,109,0.2);
+    padding: 3px 10px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .topic h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--heading);
+  }
+  .topic-body { padding: 28px; }
+
+  /* SECTION LABELS */
+  .section-label {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin: 28px 0 12px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .lbl-concept { color: var(--accent4); }
+  .lbl-examiner { color: var(--accent2); }
+  .lbl-numerical { color: var(--accent3); }
+  .lbl-pitfall { color: #e87a6d; }
+
+  /* CONTENT ELEMENTS */
+  p { margin-bottom: 14px; }
+  ul, ol { padding-left: 22px; margin-bottom: 14px; }
+  li { margin-bottom: 6px; }
+  strong { color: var(--heading); font-weight: 600; }
+  em { color: var(--accent); font-style: italic; }
+
+  /* BOXES */
+  .concept-box {
+    background: rgba(109,232,184,0.04);
+    border: 1px solid rgba(109,232,184,0.15);
+    border-radius: 6px;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+  }
+  .examiner-box {
+    background: rgba(109,158,232,0.05);
+    border: 1px solid rgba(109,158,232,0.15);
+    border-radius: 6px;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+  }
+  .numerical-box {
+    background: rgba(232,109,158,0.05);
+    border: 1px solid rgba(232,109,158,0.2);
+    border-radius: 6px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+  .pitfall-box {
+    background: rgba(232,122,109,0.06);
+    border: 1px solid rgba(232,122,109,0.2);
+    border-radius: 6px;
+    padding: 16px 22px;
+  }
+  .pitfall-box li { color: #f0a090; }
+
+  /* STEP */
+  .step {
+    background: rgba(255,255,255,0.02);
+    border-left: 3px solid var(--accent3);
+    padding: 10px 16px;
+    margin: 10px 0;
+    border-radius: 0 4px 4px 0;
+    font-size: 15px;
+  }
+  .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent3);
+    margin-bottom: 4px;
+  }
+
+  /* TABLE */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  th {
+    background: rgba(232,184,109,0.1);
+    color: var(--heading);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    text-align: left;
+  }
+  td {
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--text);
+  }
+  tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+  /* FORMULA VAULT */
+  .vault { margin-top: 70px; }
+  .vault-header {
+    padding: 30px 32px;
+    background: linear-gradient(135deg, rgba(232,184,109,0.08), rgba(109,158,232,0.06));
+    border: 1px solid var(--border);
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    text-align: center;
+  }
+  .vault-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--heading);
+  }
+  .vault-header p { color: var(--muted); font-style: italic; margin: 6px 0 0; }
+  .vault-body {
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+  }
+  .vault-section {
+    border-bottom: 1px solid var(--border);
+    padding: 22px 28px;
+  }
+  .vault-section:last-child { border-bottom: none; }
+  .vault-section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .formula-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+  }
+  .formula-item {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 12px 14px;
+  }
+  .formula-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .formula-eq { font-size: 14px; }
+
+  /* Q LABEL */
+  .q-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent2);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .q-item { margin-bottom: 14px; }
+
+  /* ANALOGY */
+  .analogy {
+    font-style: italic;
+    color: var(--muted);
+    border-left: 3px solid var(--accent);
+    padding: 8px 14px;
+    margin: 12px 0;
+    font-size: 15px;
+  }
+
+  /* HIGHLIGHT */
+  .highlight { color: var(--accent); font-weight: 600; }
+  .highlight2 { color: var(--accent2); font-weight: 600; }
+
+  /* RESULT BOX */
+  .result-box {
+    background: rgba(109,232,184,0.08);
+    border: 1px solid rgba(109,232,184,0.25);
+    border-radius: 4px;
+    padding: 10px 16px;
+    margin-top: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--accent4);
+  }
+
+  @media(max-width:768px){
+    .sidebar { display: none; }
+    .main { padding: 24px 20px 60px; }
+    .formula-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">Engineering Electrical Circuits</div>
+  <h1>Master Study <span>Guide</span></h1>
+  <p>A comprehensive, exam-ready breakdown of DC & AC Circuit Analysis — Units I & II</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">2</div><div class="stat-label">Units</div></div>
+    <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Topics</div></div>
+    <div class="stat"><div class="stat-num">40+</div><div class="stat-label">Exam Qs</div></div>
+    <div class="stat"><div class="stat-num">60+</div><div class="stat-label">Formulas</div></div>
+  </div>
+</div>
+
+<div class="layout">
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-title">Contents</div>
+  <div class="toc-unit">Unit I — DC Circuits</div>
+  <a href="#passive" class="toc-item">1. Passive Components</a>
+  <a href="#laws" class="toc-item">2. Basic Laws of EE</a>
+  <a href="#temp" class="toc-item">3. Temperature Resistance</a>
+  <a href="#sources" class="toc-item">4. Voltage & Current Sources</a>
+  <a href="#series-parallel" class="toc-item">5. Series & Parallel Circuits</a>
+  <a href="#kirchhoff" class="toc-item">6. Kirchhoff's Laws (KVL/KCL)</a>
+  <a href="#nodal-mesh" class="toc-item">7. Nodal & Mesh Analysis</a>
+  <a href="#delta-star" class="toc-item">8. Delta-Star Transform</a>
+  <a href="#superposition" class="toc-item">9. Superposition Theorem</a>
+  <a href="#thevenin" class="toc-item">10. Thevenin's Theorem</a>
+  <a href="#norton" class="toc-item">11. Norton's Theorem</a>
+  <a href="#mpt" class="toc-item">12. Max Power Transfer</a>
+  <a href="#rc-rl" class="toc-item">13. First Order RC & RL</a>
+
+  <div class="toc-unit">Unit II — AC Circuits</div>
+  <a href="#sinusoidal" class="toc-item">14. Sinusoidal Waveforms</a>
+  <a href="#phasor" class="toc-item">15. Phasor Representation</a>
+  <a href="#power-ac" class="toc-item">16. AC Power (P, Q, S, PF)</a>
+  <a href="#rlc-analysis" class="toc-item">17. Single-Phase AC Analysis</a>
+  <a href="#resonance" class="toc-item">18. Resonance</a>
+  <a href="#three-phase" class="toc-item">19. Three-Phase Circuits</a>
+  <a href="#star-delta" class="toc-item">20. Star & Delta Connections</a>
+
+  <div class="toc-unit">Reference</div>
+  <a href="#vault" class="toc-item">Formula Vault</a>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- =========================================================
+     UNIT I
+     ========================================================= -->
+<div class="unit-header" id="unit1">
+  <div class="unit-tag">Unit I · 9 Hours · [T1]</div>
+  <h2>DC Circuit Analysis</h2>
+</div>
+
+<!-- 1. PASSIVE COMPONENTS -->
+<div class="topic" id="passive">
+  <div class="topic-header">
+    <span class="topic-num">01</span>
+    <h3>Passive Circuit Components (R, L, C)</h3>
+  </div>
+  <div class="topic-body">
+
+    <div class="section-label lbl-concept">① Concept Breakdown</div>
+    <div class="concept-box">
+      <p>Passive components do not generate energy — they only store or dissipate it. There are three fundamental passive elements:</p>
+      <table>
+        <tr><th>Component</th><th>Symbol</th><th>V–I Relationship</th><th>Energy Behaviour</th></tr>
+        <tr><td><strong>Resistor (R)</strong></td><td>Ω</td><td>$v = iR$</td><td>Dissipates as heat</td></tr>
+        <tr><td><strong>Inductor (L)</strong></td><td>Henry (H)</td><td>$v = L\dfrac{di}{dt}$</td><td>Stores in magnetic field</td></tr>
+        <tr><td><strong>Capacitor (C)</strong></td><td>Farad (F)</td><td>$i = C\dfrac{dv}{dt}$</td><td>Stores in electric field</td></tr>
+      </table>
+      <div class="analogy">💡 <em>Analogy:</em> Think of a resistor as friction in a pipe (resists flow), an inductor as a heavy flywheel (resists changes in current), and a capacitor as an elastic balloon (resists changes in voltage).</div>
+      <p>Key stored energy formulae:</p>
+      <ul>
+        <li>Inductor: $\displaystyle W_L = \frac{1}{2}LI^2$</li>
+        <li>Capacitor: $\displaystyle W_C = \frac{1}{2}CV^2$</li>
+      </ul>
+    </div>
+
+    <div class="section-label lbl-examiner">② Examiner's Perspective</div>
+    <div class="examiner-box">
+      <div class="q-item"><div class="q-label">THEORETICAL Q1</div>Differentiate between resistors, inductors, and capacitors in terms of their V–I relationship and energy storage behaviour.</div>
+      <div class="q-item"><div class="q-label">THEORETICAL Q2</div>Why is an inductor called a "current memory" device and a capacitor a "voltage memory" device?</div>
+    </div>
+
+    <div class="section-label lbl-numerical">③ Numerical Problem</div>
+    <div class="numerical-box">
+      <p><strong>Problem:</strong> A 200 mH inductor carries a current that ramps linearly from 0 A to 5 A in 2 ms. Find the voltage across it and the energy stored at $t = 2$ ms.</p>
+      <div class="step"><div class="step-num">STEP 1 — Find di/dt</div>$$\frac{di}{dt} = \frac{5 - 0}{2 \times 10^{-3}} = 2500 \text{ A/s}$$</div>
+      <div class="step"><div class="step-num">STEP 2 — Inductor voltage</div>$$v = L\frac{di}{dt} = 200 \times 10^{-3} \times 2500 = 500 \text{ V}$$</div>
+      <div class="step"><div class="step-num">STEP 3 — Stored energy</div>$$W_L = \frac{1}{2}LI^2 = \frac{1}{2}(0.2)(5)^2 = 2.5 \text{ J}$$</div>
+      <div class="result-box">✓ v = 500 V, W_L = 2.5 J</div>
+    </div>
+
+    <div class="section-label lbl-pitfall">⚠ Key Pitfalls</div>
+    <div class="pitfall-box">
+      <ul>
+        <li>Confusing the units: Farads, Henrys, Ohms — always carry units in every step.</li>
+        <li>For capacitors, forgetting that <em>current</em> is $C\,dv/dt$, not $v/C$.</li>
+        <li>Mixing up "energy stored" vs "power dissipated" — inductors and capacitors store, resistors dissipate.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 2. BASIC LAWS -->
+<div class="topic" id="laws">
+  <div class="topic-header">
+    <span class="topic-num">02</span>
+    <h3>Basic Laws of Electrical Engineering (Ohm's Law)</h3>
+  </div>
+  <div class="topic-body">
+    <div class="section-label lbl-concept">① Concept Breakdown</div>
+    <div class="concept-box">
+      <p><strong>Ohm's Law</strong> is the cornerstone: at constant temperature, the voltage across a conductor is directly proportional to the current through it.</p>
+      $$\boxed{V = IR}$$
+      <p>Rearranged forms used frequently in exams:</p>
+      <ul>
+        <li>$I = V/R$ (current from voltage)</li>
+        <li>$R = V/I$ (resistance from measurements)</li>
+        <li>Power: $P = VI = I^2R = V^2/R$</li>
+      </ul>
+      <p><strong>Conductance</strong> $G = 1/R$ (in Siemens, S) is sometimes used in nodal analysis.</p>
+    </div>
+
+    <div class="section-label lbl-examiner">② Examiner's Perspective</div>
+    <div class="examiner-box">
+      <div class="q-item"><div class="q-label">THEORETICAL Q1</div>State Ohm's Law and explain its limitations. Under what conditions does it fail?</div>
+      <div class="q-item"><div class="q-label">THEORETICAL Q2</div>A 100 Ω resistor dissipates 40 W. Find the current through it and the voltage across it.</div>
+    </div>
+
+    <div class="section-label lbl-numerical">③ Numerical Problem</div>
+    <div class="numerical-box">
+      <p><strong>Problem:</strong> A resistor dissipates 40 W when connected to a 100 V supply. Find R and I.</p>
+      <div class="step"><div class="step-num">STEP 1 — Find R from P = V²/R</div>$$R = \frac{V^2}{P} = \frac{100^2}{40} = 250 \;\Omega$$</div>
+      <div class="step"><div class="step-num">STEP 2 — Find I</div>$$I = \frac{V}{R} = \frac{100}{250} = 0.4 \text{ A}$$</div>
+      <div class="result-box">✓ R = 250 Ω, I = 0.4 A</div>
+    </div>
+
+    <div class="section-label lbl-pitfall">⚠ Key Pitfalls</div>
+    <div class="pitfall-box"><ul>
+      <li>Ohm's Law does NOT apply to non-linear devices (diodes, transistors).</li>
+      <li>Using $P = V^2/R$ when V is RMS — ensure consistency between peak and RMS values in AC contexts.</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- 3. TEMPERATURE RESISTANCE -->
+<div class="topic" id="temp">
+  <div class="topic-header">
+    <span class="topic-num">03</span>
+    <h3>Temperature Resistance Coefficients</h3>
+  </div>
+  <div class="topic-body">
+    <div class="section-label lbl-concept">① Concept Breakdown</div>
+    <div class="concept-box">
+      <p>Resistance changes with temperature. This is characterized by the <strong>Temperature Coefficient of Resistance (α)</strong>:</p>
+      $$\boxed{R_T = R_0 \left[1 + \alpha (T - T_0)\right]}$$
+      <p>Where $R_0$ is resistance at reference temperature $T_0$ (usually 20°C or 0°C), and $\alpha$ is in per °C (or per K).</p>
+      <table>
+        <tr><th>Material</th><th>α (per °C at 20°C)</th><th>Type</th></tr>
+        <tr><td>Copper</td><td>+0.00393</td><td>Positive (PTC)</td></tr>
+        <tr><td>Aluminum</td><td>+0.00403</td><td>Positive (PTC)</td></tr>
+        <tr><td>Nichrome</td><td>+0.00017</td><td>Positive (PTC)</td></tr>
+        <tr><td>Carbon</td><td>−0.0005</td><td>Negative (NTC)</td></tr>
+        <tr><td>Silicon (semiconductor)</td><td>Negative</td><td>NTC</td></tr>
+      </table>
+      <div class="analogy">💡 <em>Analogy:</em> In metals, higher temperature = more atomic vibrations = more collisions for electrons = higher resistance. In semiconductors, higher temperature = more free carriers = lower resistance.</div>
+    </div>
+
+    <div class="section-label lbl-examiner">② Examiner's Perspective</div>
+    <div class="examiner-box">
+      <div class="q-item"><div class="q-label">THEORETICAL Q1</div>Distinguish between Positive Temperature Coefficient (PTC) and Negative Temperature Coefficient (NTC) materials with examples.</div>
+      <div class="q-item"><div class="q-label">THEORETICAL Q2</div>Explain why semiconductor resistance decreases with temperature while metallic resistance increases.</div>
+    </div>
+
+    <div class="section-label lbl-numerical">③ Numerical Problem</div>
+    <div class="numerical-box">
+      <p><strong>Problem:</strong> A copper coil has resistance 50 Ω at 20°C. Find resistance at 80°C. ($\alpha_{Cu} = 0.00393$/°C)</p>
+      <div class="step"><div class="step-num">STEP 1 — Apply formula</div>$$R_{80} = R_{20}\left[1 + \alpha(T - T_0)\right] = 50\left[1 + 0.00393(80-20)\right]$$</div>
+      <div class="step"><div class="step-num">STEP 2 — Compute</div>$$R_{80} = 50\left[1 + 0.2358\right] = 50 \times 1.2358 = 61.79 \;\Omega$$</div>
+      <div class="result-box">✓ R₈₀ ≈ 61.8 Ω</div>
+    </div>
+
+    <div class="section-label lbl-pitfall">⚠ Key Pitfalls</div>
+    <div class="pitfall-box"><ul>
+      <li>Not checking the reference temperature ($T_0$) — it may be 0°C or 20°C depending on the problem.</li>
+      <li>Using the temperature difference $(T - T_0)$, not just $T$.</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- 4. SOURCES -->
+<div class="topic" id="sources">
+  <div class="topic-header">
+    <span class="topic-num">04</span>
+    <h3>Voltage and Current Sources</h3>
+  </div>
+  <div class="topic-body">
+    <div class="section-label lbl-concept">① Concept Breakdown</div>
+    <div class="concept-box">
+      <table>
+        <tr><th>Property</th><th>Ideal Voltage Source</th><th>Ideal Current Source</th></tr>
+        <tr><td>Maintains</td><td>Constant terminal voltage regardless of current</td><td>Constant current regardless of voltage</td></tr>
+        <tr><td>Internal resistance</td><td>$r_s = 0$</td><td>$r_s = \infty$</td></tr>
+        <tr><td>Short circuit</td><td>Infinite current (ideal)</td><td>Defines the short-circuit current</td></tr>
+        <tr><td>Open circuit</td><td>Defines terminal voltage</td><td>Infinite voltage across terminals</td></tr>
+      </table>
+      <p><strong>Practical sources</strong> are modelled with an internal resistance $r_s$:</p>
+      <ul>
+        <li>Practical voltage source: ideal $V_s$ in series with $r_s$. Terminal voltage: $V_T = V_s - I \cdot r_s$</li>
+        <li>Practical current source: ideal $I_s$ in parallel with $r_s$.</li>
+      </ul>
+      <p><strong>Source Transformation:</strong> A voltage source $V_s$ in series with $R$ can be converted to a current source $I_s = V_s/R$ in parallel with the same $R$.</p>
+      $$\boxed{I_s = \frac{V_s}{R}, \quad V_s = I_s \cdot R}$$
+    </div>
+
+    <div class="section-label lbl-examiner">② Examiner's Perspective</div>
+    <div class="examiner-box">
+      <div class="q-item"><div class="q-label">THEORETICAL Q1</div>Differentiate between ideal and practical voltage sources. How does loading affect terminal voltage?</div>
+      <div class="q-item"><div class="q-label">THEORETICAL Q2</div>Explain source transformation with a diagram. When is it useful in circuit analysis?</div>
+    </div>
+
+    <div class="section-label lbl-numerical">③ Numerical Problem</div>
+    <div class="numerical-box">
+      <p><strong>Problem:</strong> Convert a 12 V source with 4 Ω internal resistance into an equivalent current source.</p>
+      <div class="step"><div class="step-num">STEP 1</div>$$I_s = \frac{V_s}{r_s} = \frac{12}{4} = 3 \text{ A}$$</div>
+      <div class="step"><div class="step-num">STEP 2</div>Place $I_s = 3$ A current source in <em>parallel</em> with $r_s = 4\;\Omega$.</div>
+      <div class="result-box">✓ Equivalent: 3 A current source ∥ 4 Ω</div>
+    </div>
+
+    <div class="section-label lbl-pitfall">⚠ Key Pitfalls</div>
+    <div class="pitfall-box"><ul>
+      <li>In source transformation, the resistor switches from series (voltage source) to parallel (current source).</li>
+      <li>Dependent sources cannot be deactivated during Thevenin/Norton analysis — they stay active.</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- 5. SERIES PARALLEL -->
+<div class="topic" id="series-parallel">
+  <div class="topic-header">
+    <span class="topic-num">05</span>
+    <h3>Series and Parallel Circuits, Power & Energy</h3>
+  </div>
+  <div class="topic-body">
+    <div class="section-label lbl-concept">① Concept Breakdown</div>
+    <div class="concept-box">
+      <table>
+        <tr><th>Property</th><th>Series</th><th>Parallel</th></tr>
+        <tr><td>Current</td><td>Same through all: $I_1 = I_2 = I$</td><td>Same voltage: $V_1 = V_2 = V$</td></tr>
+        <tr><td>Voltage</td><td>$V = V_1 + V_2 + \cdots$</td><td>$I = I_1 + I_2 + \cdots$</td></tr>
+        <tr><td>Resistance</td><td>$R_{eq} = R_1 + R_2 + \cdots$</td><td>$\dfrac{1}{R_{eq}} = \dfrac{1}{R_1} + \dfrac{1}{R_2} + \cdots$</td></tr>
+        <tr><td>Two resistors parallel</td><td>—</td><td>$R_{eq} = \dfrac{R_1 R_2}{R_1 + R_2}$</td></tr>
+      </table>
+      <p><strong>Voltage Divider</strong> (series): $\displaystyle V_x = V_s \cdot \frac{R_x}{R_{total}}$</p>
+      <p><strong>Current Divider</strong> (parallel, 2 resistors): $\displaystyle I_1 = I_s \cdot \frac{R_2}{R_1 + R_2}$</p>
+      <p>Power dissipated: $P = VI = I^2R = V^2/R$. Energy: $W = P \times t$ (in Joules).</p>
+    </div>
+
+    <div class="section-label lbl-examiner">② Examiner's Perspective</div>
+    <div class="examiner-box">
+      <div class="q-item"><div class="q-label">THEORETICAL Q1</div>A 6 Ω and 3 Ω resistor are in parallel. Derive the equivalent resistance and explain the current division principle.</div>
+      <div class="q-item"><div class="q-label">THEORETICAL Q2</div>Why do household appliances connect in parallel rather than series?</div>
+    </div>
+
+    <div class="section-label lbl-numerical">③ Numerical Problem</div>
+    <div class="numerical-box">
+      <p><strong>Problem:</strong> Three resistors R₁ = 6 Ω, R₂ = 3 Ω, R₃ = 2 Ω. R₁ is in series with the parallel combination of R₂ and R₃. Source voltage = 12 V. Find total current and power delivered by source.</p>
+      <div class="step"><div class="step-num">STEP 1 — Parallel combo R₂ ∥ R₃</div>$$R_{23} = \frac{3 \times 2}{3+2} = \frac{6}{5} = 1.2\;\Omega$$</div>
+      <div class="step"><div class="step-num">STEP 2 — Total resistance</div>$$R_{eq} = R_1 + R_{23} = 6 + 1.2 = 7.2\;\Omega$$</div>
+      <div class="step"><div class="step-num">STEP 3 — Total current</div>$$I = \frac{V}{R_{eq}} = \frac{12}{7.2} = 1.667\text{ A}$$</div>
+      <div class="step"><div class="step-num">STEP 4 — Power</div>$$P = VI = 12 \times 1.667 = 20\text{ W}$$</div>
+      <div class="result-box">✓ I = 1.667 A, P = 20 W</div>
+    </div>
+
+    <div class="section-label lbl-pitfall">⚠ Key Pitfalls</div>
+    <div class="pitfall-box"><ul>
+      <li>For current divider with two resistors: $I_1 = I_s \cdot R_2/(R_1+R_2)$ — note it's the <em>other</em> resistor in the numerator.</li>
+      <li>When calculating $R_{eq}$ for n parallel resistors, don't forget to take the reciprocal of the sum of reciprocals.</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- 6. KIRCHHOFF -->
+<div class="topic" id="kirchhoff">
+  <div class="topic-header">
+    <span class="topic-num">06</span>
+    <h3>Kirchhoff's Laws (KVL & KCL)</h3>
+  </div>
+  <div class="topic-body">
+    <div class="section-label lbl-concept">① Concept Breakdown</div>
+    <div class="concept-box">
+      <p><strong>KCL — Kirchhoff's Current Law:</strong> At any node, the algebraic sum of all currents equals zero (conservation of charge).</p>
+      $$\boxed{\sum I_{in} = \sum I_{out} \quad \Longleftrightarrow \quad \sum I = 0}$$
+      <div class="analogy">💡 <em>Analogy:</em> Water flowing into a pipe junction must equal water flowing out. No charge accumulates at a node.</div>
+      <p><strong>KVL — Kirchhoff's Voltage Law:</strong> Around any closed loop, the algebraic sum of all voltage rises and drops equals zero (conservation of energy).</p>
+      $$\boxed{\sum V = 0 \quad \text{(around any closed loop)}}$$
+      <div class="analogy">💡 <em>Analogy:</em> If you walk around a hill and return to the start, your net elevation change is zero — regardless of the path taken.</div>
+      <p><strong>Sign convention for KVL:</strong> Choose a direction (CW or CCW). Voltage rise (+) when traversing from − to + terminal; voltage drop (−) when traversing + to −.</p>
+    </div>
+
+    <div class="section-label lbl-examiner">② Examiner's Perspective</div>
+    <div class="examiner-box">
+      <div class="q-item"><div class="q-label">THEORETICAL Q1</div>State KCL and KVL. On what fundamental physical principles are they based?</div>
+      <div class="q-item"><div class="q-label">THEORETICAL Q2</div>How many independent KCL and KVL equations can be written for a circuit with $N$ nodes and $B$ branches?</div>
+    </div>
+
+    <div class="section-label lbl-numerical">③ Numerical Problem</div>
+    <div class="numerical-box">
+      <p><strong>Problem:</strong> In a single loop: 20 V source, R₁ = 4 Ω, R₂ = 6 Ω in series. Find current I and voltage across each resistor.</p>
+      <div class="step"><div class="step-num">STEP 1 — Apply KVL (clockwise loop)</div>$$20 - 4I - 6I = 0 \implies 10I = 20 \implies I = 2\text{ A}$$</div>
+      <div class="step"><div class="step-num">STEP 2 — Voltage drops</div>$$V_{R_1} = 4 \times 2 = 8\text{ V}, \quad V_{R_2} = 6 \times 2 = 12\text{ V}$$</div>
+      <div class="step"><div class="step-num">STEP 3 — Verify KVL</div>$$20 - 8 - 12 = 0 \;\checkmark$$</div>
+      <div class="result-box">✓ I = 2 A, V_R1 = 8 V, V_R2 = 12 V</div>
+    </div>
+
+    <div class="section-label lbl-pitfall">⚠ Key Pitfalls</div>
+    <div class="pitfall-box"><ul>
+      <li>Inconsistent sign convention in KVL — pick one direction and stick to it throughout the loop.</li>
+      <li>Number of independent KCL equations = N−1 (not N). The last node equation is redundant.</li>
+      <li>KVL applies to any loop, even if no source is present.</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- 7. NODAL & MESH -->
+<div class="topic" id="nodal-mesh">
+  <div class="topic-header">
+    <span class="topic-num">07</span>
+    <h3>Nodal & Mesh Analysis</h3>
+  </div>
+  <div class="topic-body">
+    <div class="section-label lbl-concept">① Concept Breakdown</div>
+    <div class="concept-box">
+      <p><strong>Nodal Analysis</strong> uses KCL at each non-reference node. Unknowns = node voltages $V_1, V_2, \ldots$</p>
+      <ul>
+        <li>Choose a reference (ground) node.</li>
+        <li>At each node, $\sum$currents leaving = 0: $\dfrac{V_n - V_k}{R} = $ source current.</li>
+        <li>Solve the resulting system of equations.</li>
+      </ul>
+      <p><strong>Mesh Analysis</strong> uses KVL around each mesh (independent loop). Unknowns = mesh currents $I_1, I_2, \ldots$</p>
+      <ul>
+        <li>Assign clockwise mesh currents.</li>
+        <li>Apply KVL: $\sum V = 0$ for each mesh.</li>
+        <li>For shared branches: current = $I_m - I_n$.</li>
+      </ul>
+      <table>
+        <tr><th></th><th>Nodal Analysis</th><th>Mesh Analysis</th></tr>
+        <tr><td><strong>Law used</strong></td><td>KCL</td><td>KVL</td></tr>
+        <tr><td><strong>Unknowns</strong></td><td>Node voltages</td><td>Mesh currents</td></tr>
+        <tr><td><strong>Better when</strong></td><td>Many current sources</td><td>Many voltage sources</td></tr>
+        <tr><td><strong>Equations needed</strong></td><td>N−1 (nodes−1)</td><td>L = B−N+1 (mesh count)</td></tr>
+      </table>
+    </div>
+
+    <div class="section-label lbl-examiner">② Examiner's Perspective</div>
+    <div class="examiner-box">
+      <div class="q-item"><div class="q-label">THEORETICAL Q1</div>Compare nodal and mesh analysis. When would you prefer one over the other?</div>
+      <div class="q-item"><div class="q-label">THEORETICAL Q2</div>What is a "supermesh"? When does it arise and how is it handled?</div>
+    </div>
+
+    <div class="section-label lbl-numerical">③ Numerical Problem — Nodal</div>
+    <div class="numerical-box">
+      <p><strong>Problem:</strong> Circuit: Node V₁ connected to 10 V source (ground on other side), 5 Ω to ground, and 10 Ω between V₁ and V₂. Node V₂ connected to 2 A source (into node) and 4 Ω to ground. Find V₁ and V₂.</p>
+      <div class="step"><div class="step-num">STEP 1 — Node V₁: V₁ is fixed by voltage source</div>$$V_1 = 10\text{ V}$$</div>
+      <div class="step"><div class="step-num">STEP 2 — KCL at Node V₂</div>$$\frac{V_2 - V_1}{10} + \frac{V_2}{4} = 2$$</div>
+      <div class="step"><div class="step-num">STEP 3 — Substitute V₁ = 10</div>$$\frac{V_2 - 10}{10} + \frac{V_2}{4} = 2 \implies 0.1V_2 - 1 + 0.25V_2 = 2$$
+      $$0.35V_2 = 3 \implies V_2 = 8.57\text{ V}$$</div>
+      <div class="result-box">✓ V₁ = 10 V, V₂ ≈ 8.57 V</div>
+    </div>
+
+    <div class="section-label lbl-pitfall">⚠ Key Pitfalls</div>
+    <div class="pitfall-box"><ul>
+      <li>In nodal analysis, forgetting to subtract when current flows from $V_n$ to $V_k$: it's $(V_n - V_k)/R$, not $V_n/R$.</li>
+      <li>In mesh analysis, for a shared branch between mesh 1 and 2: current through it is $(I_1 - I_2)$, not just $I_1$.</li>
+      <li>Not handling supernodes (when a voltage source connects two non-reference nodes) — write a constraint equation alongside KCL.</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- 8. DELTA-STAR -->
+<div class="topic" id="delta-star">
+  <div class="topic-header">
+    <span class="topic-num">08</span>
+    <h3>Delta–Star (Δ–Y) Transformation</h3>
+  </div>
+  <div class="topic-body">
+    <div class="section-label lbl-concept">① Concept Breakdown</div>
+    <div class="concept-box">
+      <p>Some circuits cannot be reduced using series/parallel rules alone. The <strong>Δ–Y transformation</strong> converts between two equivalent three-terminal configurations.</p>
+      <p><strong>Delta (Δ) → Star (Y):</strong> Each star resistor = (product of adjacent delta resistors) ÷ (sum of all delta resistors).</p>
+      $$\boxed{R_a = \frac{R_{ab}\cdot R_{ca}}{R_{ab}+R_{bc}+R_{ca}}, \quad R_b = \frac{R_{ab}\cdot R_{bc}}{R_{ab}+R_{bc}+R_{ca}}, \quad R_c = \frac{R_{bc}\cdot R_{ca}}{R_{ab}+R_{bc}+R_{ca}}}$$
+      <p><strong>Star (Y) → Delta (Δ):</strong></p>
+      $$\boxed{R_{ab} = R_a + R_b + \frac{R_a R_b}{R_c}, \quad \text{(and cyclically for } R_{bc}, R_{ca}\text{)}}$$
+      <p>For a <em>balanced</em> network where all Δ resistors = $R_\Delta$: $R_Y = R_\Delta / 3$. Conversely, $R_\Delta = 3R_Y$.</p>
+      <div class="analogy">💡 <em>Memory aid:</em> Δ→Y: each star arm = product of two touching Δ arms ÷ sum of all three. Think "shrink inward."</div>
+    </div>
+
+    <div class="section-label lbl-examiner">② Examiner's Perspective</div>
+    <div class="examiner-box">
+      <div class="q-item"><div class="q-label">THEORETICAL Q1</div>Why is delta-star transformation necessary? Illustrate with a circuit that cannot be solved by simple series/parallel reduction.</div>
+      <div class="q-item"><div class="q-label">THEORETICAL Q2</div>For a balanced delta network with each arm = 30 Ω, what is the equivalent star resistance?</div>
+    </div>
+
+    <div class="section-label lbl-numerical">③ Numerical Problem</div>
+    <div class="numerical-box">
+      <p><strong>Problem:</strong> Δ network: $R_{AB} = 30\;\Omega$, $R_{BC} = 60\;\Omega$, $R_{CA} = 90\;\Omega$. Find equivalent Y resistors.</p>
+      <div class="step"><div class="step-num">STEP 1 — Sum</div>$$\Sigma = 30 + 60 + 90 = 180\;\Omega$$</div>
+      <div class="step"><div class="step-num">STEP 2 — Star resistors</div>
+      $$R_A = \frac{R_{AB}\cdot R_{CA}}{\Sigma} = \frac{30\times90}{180} = 15\;\Omega$$
+      $$R_B = \frac{R_{AB}\cdot R_{BC}}{\Sigma} = \frac{30\times60}{180} = 10\;\Omega$$
+      $$R_C = \frac{R_{BC}\cdot R_{CA}}{\Sigma} = \frac{60\times90}{180} = 30\;\Omega$$</div>
+      <div class="result-box">✓ R_A = 15 Ω, R_B = 10 Ω, R_C = 30 Ω</div>
+    </div>
+
+    <div class="section-label lbl-pitfall">⚠ Key Pitfalls</div>
+    <div class="pitfall-box"><ul>
+      <li>Confusing the Y→Δ and Δ→Y formulas — memorize one and derive the other.</li>
+      <li>Always label nodes clearly (A, B, C) before applying formulas — mislabelling is the #1 error.</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- 9. SUPERPOSITION -->
+<div class="topic" id="superposition">
+  <div class="topic-header">
+    <span class="topic-num">09</span>
+    <h3>Superposition Theorem</h3>
+  </div>
+  <div class="topic-body">
+    <div class="section-label lbl-concept">① Concept Breakdown</div>
+    <div class="concept-box">
+      <p>In a <em>linear</em> circuit with multiple sources, the response (voltage or current) at any branch equals the algebraic sum of responses due to each independent source acting alone (others deactivated).</p>
+      <ul>
+        <li>Deactivate a <strong>voltage source</strong>: replace with a <strong>short circuit</strong>.</li>
+        <li>Deactivate a <strong>current source</strong>: replace with an <strong>open circuit</strong>.</li>
+      </ul>
+      <div class="analogy">💡 <em>Analogy:</em> The noise in a room from two speakers independently adds up. Superposition lets you solve each "speaker" alone, then add results.</div>
+      <p><strong>Important:</strong> Superposition applies to voltage and current, NOT directly to power (since power is non-linear: $P \propto I^2$).</p>
+    </div>
+
+    <div class="section-label lbl-examiner">② Examiner's Perspective</div>
+    <div class="examiner-box">
+      <div class="q-item"><div class="q-label">THEORETICAL Q1</div>State the Superposition Theorem. Why does it not apply directly to power calculations?</div>
+      <div class="q-item"><div class="q-label">THEORETICAL Q2</div>Can superposition be applied to circuits with dependent sources? Explain.</div>
+    </div>
+
+    <div class="section-label lbl-numerical">③ Numerical Problem</div>
+    <div class="numerical-box">
+      <p><strong>Problem:</strong> Circuit: 6 V source and 3 A current source, with R₁ = 2 Ω in series with parallel combo of R₂ = 4 Ω. Find current through R₂ using superposition.</p>
+      <div class="step"><div class="step-num">CASE 1 — Only 6 V source (open-circuit the 3 A source)</div>
+      $$I' = \frac{6}{2 + 4} = 1\text{ A (through R₂)}$$</div>
+      <div class="step"><div class="step-num">CASE 2 — Only 3 A source (short-circuit the 6 V source)</div>
+      Using current divider (R₁ ∥ ... — assume R₁ and R₂ in parallel from source perspective):
+      $$I'' = 3 \times \frac{R_1}{R_1 + R_2} = 3 \times \frac{2}{2+4} = 1\text{ A}$$</div>
+      <div class="step"><div class="step-num">STEP 3 — Superpose (check directions, assume additive)</div>$$I_{R_2} = I' + I'' = 1 + 1 = 2\text{ A}$$</div>
+      <div class="result-box">✓ I_R2 = 2 A</div>
+    </div>
+
+    <div class="section-label lbl-pitfall">⚠ Key Pitfalls</div>
+    <div class="pitfall-box"><ul>
+      <li>Forgetting to check the <em>direction</em> of each partial current before adding — they may subtract.</li>
+      <li>Dependent sources are NEVER deactivated — only independent sources are turned off.</li>
+      <li>Superposition cannot be used to find power directly.</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- 10. THEVENIN -->
+<div class="topic" id="thevenin">
+  <div class="topic-header">
+    <span class="topic-num">10</span>
+    <h3>Thevenin's Theorem</h3>
+  </div>
+  <div class="topic-body">
+    <div class="section-label lbl-concept">① Concept Breakdown</div>
+    <div class="concept-box">
+      <p>Any linear two-terminal circuit can be replaced by a single <strong>voltage source $V_{th}$</strong> in series with a single <strong>resistance $R_{th}$</strong>.</p>
+      <ul>
+        <li>$V_{th}$ = Open-circuit voltage at the terminals (remove the load, measure $V_{OC}$).</li>
+        <li>$R_{th}$ = Equivalent resistance seen from the terminals with all independent sources deactivated.</li>
+      </ul>
+      $$\boxed{V_{th} = V_{OC}, \quad R_{th} = R_{eq}\big|_{\text{sources deactivated}}}$$
+      <div class="analogy">💡 <em>Analogy:</em> No matter how complex your power grid, from your socket's perspective, it's just one voltage source with an internal resistance.</div>
+      <p>With load $R_L$ connected: $\displaystyle I_L = \frac{V_{th}}{R_{th} + R_L}$</p>
+    </div>
+
+    <div class="section-label lbl-examiner">② Examiner's Perspective</div>
+    <div class="examiner-box">
+      <div class="q-item"><div class="q-label">THEORETICAL Q1</div>State Thevenin's theorem. What is the procedure to find $V_{th}$ and $R_{th}$?</div>
+      <div class="q-item"><div class="q-label">THEORETICAL Q2</div>How do you find $R_{th}$ when the circuit contains dependent sources?</div>
+    </div>
+
+    <div class="section-label lbl-numerical">③ Numerical Problem</div>
+    <div class="numerical-box">
+      <p><strong>Problem:</strong> A circuit with 12 V source, R₁ = 6 Ω in series, R₂ = 4 Ω in parallel with the output terminals AB. Find Thevenin equivalent and current through $R_L = 2\;\Omega$.</p>
+      <div class="step"><div class="step-num">STEP 1 — Find V_th (open circuit AB, no current in R₂... wait, R₂ connects from series node to B)</div>
+      By voltage divider: $$V_{th} = 12 \times \frac{4}{6+4} = 4.8\text{ V}$$</div>
+      <div class="step"><div class="step-num">STEP 2 — Find R_th (short 12 V source)</div>$$R_{th} = R_1 \| R_2 = \frac{6 \times 4}{6+4} = 2.4\;\Omega$$</div>
+      <div class="step"><div class="step-num">STEP 3 — Load current</div>$$I_L = \frac{V_{th}}{R_{th} + R_L} = \frac{4.8}{2.4+2} = \frac{4.8}{4.4} \approx 1.09\text{ A}$$</div>
+      <div class="result-box">✓ V_th = 4.8 V, R_th = 2.4 Ω, I_L ≈ 1.09 A</div>
+    </div>
+
+    <div class="section-label lbl-pitfall">⚠ Key Pitfalls</div>
+    <div class="pitfall-box"><ul>
+      <li>Removing the load <em>before</em> finding $V_{OC}$ is mandatory — students often forget to open-circuit the terminals.</li>
+      <li>With dependent sources: deactivate only independent sources; inject a test voltage $V_T$ (or current $I_T$) and find $R_{th} = V_T/I_T$.</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- 11. NORTON -->
+<div class="topic" id="norton">
+  <div class="topic-header">
+    <span class="topic-num">11</span>
+    <h3>Norton's Theorem</h3>
+  </div>
+  <div class="topic-body">
+    <div class="section-label lbl-concept">① Concept Breakdown</div>
+    <div class="concept-box">
+      <p>The dual of Thevenin's theorem: any linear two-terminal circuit = a current source $I_N$ in <em>parallel</em> with resistance $R_N$.</p>
+      $$\boxed{I_N = I_{SC} = \frac{V_{th}}{R_{th}}, \quad R_N = R_{th}}$$
+      <p>$I_N$ = short-circuit current at terminals (place wire across AB, measure current).</p>
+      <p>$R_N$ = same as $R_{th}$ (deactivate sources, find equivalent resistance).</p>
+      <table>
+        <tr><th></th><th>Thevenin</th><th>Norton</th></tr>
+        <tr><td>Circuit</td><td>$V_{th}$ in series with $R_{th}$</td><td>$I_N$ in parallel with $R_N$</td></tr>
+        <tr><td>Key quantity</td><td>Open-circuit voltage</td><td>Short-circuit current</td></tr>
+        <tr><td>Relationship</td><td colspan="2">$V_{th} = I_N \cdot R_N$</td></tr>
+      </table>
+    </div>
+
+    <div class="section-label lbl-examiner">② Examiner's Perspective</div>
+    <div class="examiner-box">
+      <div class="q-item"><div class="q-label">THEORETICAL Q1</div>State Norton's theorem and show that it is the dual of Thevenin's theorem.</div>
+      <div class="q-item"><div class="q-label">THEORETICAL Q2</div>Convert the Thevenin equivalent ($V_{th}$ = 8 V, $R_{th}$ = 4 Ω) to Norton form.</div>
+    </div>
+
+    <div class="section-label lbl-numerical">③ Numerical</div>
+    <div class="numerical-box">
+      <p>Using previous Thevenin result ($V_{th} = 4.8$ V, $R_{th} = 2.4$ Ω), find Norton equivalent:</p>
+      <div class="step"><div class="step-num">Norton current</div>$$I_N = \frac{V_{th}}{R_{th}} = \frac{4.8}{2.4} = 2\text{ A}$$</div>
+      <div class="step"><div class="step-num">Norton resistance</div>$$R_N = R_{th} = 2.4\;\Omega$$</div>
+      <div class="result-box">✓ I_N = 2 A ∥ R_N = 2.4 Ω</div>
+    </div>
+
+    <div class="section-label lbl-pitfall">⚠ Key Pitfalls</div>
+    <div class="pitfall-box"><ul>
+      <li>Measuring $I_{SC}$ while the circuit is loaded — terminals must be shorted (not left open).</li>
+      <li>$R_N = R_{th}$ always — they are the same equivalent resistance.</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- 12. MPT -->
+<div class="topic" id="mpt">
+  <div class="topic-header">
+    <span class="topic-num">12</span>
+    <h3>Maximum Power Transfer Theorem</h3>
+  </div>
+  <div class="topic-body">
+    <div class="section-label lbl-concept">① Concept Breakdown</div>
+    <div class="concept-box">
+      <p>Maximum power is delivered to a load when the load resistance equals the source's Thevenin resistance:</p>
+      $$\boxed{R_L = R_{th} \quad \Rightarrow \quad P_{max} = \frac{V_{th}^2}{4R_{th}}}$$
+      <p>At this condition:</p>
+      <ul>
+        <li>Efficiency = 50% (half the power is lost in $R_{th}$).</li>
+        <li>Load current: $I_L = V_{th}/(2R_{th})$</li>
+      </ul>
+      <div class="analogy">💡 <em>Analogy:</em> Like matching a speaker's impedance to an amplifier — when matched, you get maximum sound (power) transfer. Speaker manufacturers design their speakers at specific impedance (8Ω, 4Ω) for this reason.</div>
+    </div>
+
+    <div class="section-label lbl-examiner">② Examiner's Perspective</div>
+    <div class="examiner-box">
+      <div class="q-item"><div class="q-label">THEORETICAL Q1</div>State and prove the Maximum Power Transfer Theorem using calculus (differentiate $P_L$ w.r.t. $R_L$ and set to zero).</div>
+      <div class="q-item"><div class="q-label">THEORETICAL Q2</div>Why is the efficiency only 50% at maximum power transfer? Is this desirable in power systems?</div>
+    </div>
+
+    <div class="section-label lbl-numerical">③ Numerical Problem</div>
+    <div class="numerical-box">
+      <p><strong>Problem:</strong> A source has $V_{th} = 12$ V and $R_{th} = 3\;\Omega$. Find (a) $R_L$ for MPT, (b) $P_{max}$.</p>
+      <div class="step"><div class="step-num">STEP 1</div>$$R_L = R_{th} = 3\;\Omega$$</div>
+      <div class="step"><div class="step-num">STEP 2</div>$$P_{max} = \frac{V_{th}^2}{4R_{th}} = \frac{144}{12} = 12\text{ W}$$</div>
+      <div class="result-box">✓ R_L = 3 Ω, P_max = 12 W</div>
+    </div>
+
+    <div class="section-label lbl-pitfall">⚠ Key Pitfalls</div>
+    <div class="pitfall-box"><ul>
+      <li>Using $P = V_{th}^2/R_{th}$ — the correct formula is $V_{th}^2/(4R_{th})$, accounting for the voltage divider.</li>
+      <li>Confusing MPT (used in communication/electronics) with efficiency goals (used in power systems, where efficiency is paramount).</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- 13. RC RL CIRCUITS -->
+<div class="topic" id="rc-rl">
+  <div class="topic-header">
+    <span class="topic-num">13</span>
+    <h3>Time Domain Analysis: First-Order RC & RL Circuits</h3>
+  </div>
+  <div class="topic-body">
+    <div class="section-label lbl-concept">① Concept Breakdown</div>
+    <div class="concept-box">
+      <p>First-order circuits have one energy storage element (C or L) and respond to a step input with an exponential transient.</p>
+      <p>General form of response:</p>
+      $$\boxed{x(t) = x(\infty) + \left[x(0^+) - x(\infty)\right]e^{-t/\tau}}$$
+      <p>where $x(t)$ is voltage or current, $x(0^+)$ is initial value, $x(\infty)$ is final (steady-state) value, and $\tau$ is the <strong>time constant</strong>.</p>
+      <table>
+        <tr><th></th><th>RC Circuit</th><th>RL Circuit</th></tr>
+        <tr><td><strong>Time constant</strong></td><td>$\tau = RC$</td><td>$\tau = L/R$</td></tr>
+        <tr><td><strong>Charging quantity</strong></td><td>Capacitor voltage $v_C$</td><td>Inductor current $i_L$</td></tr>
+        <tr><td><strong>At $t = \tau$</strong></td><td colspan="2">Response reaches ~63.2% of final value</td></tr>
+        <tr><td><strong>Fully settled</strong></td><td colspan="2">~5τ (99.3% of final value)</td></tr>
+      </table>
+      <p><strong>RC Charging:</strong> $v_C(t) = V_s\left(1 - e^{-t/RC}\right)$ for initially uncharged capacitor.</p>
+      <p><strong>RL Energizing:</strong> $i_L(t) = \dfrac{V_s}{R}\left(1 - e^{-Rt/L}\right)$</p>
+    </div>
+
+    <div class="section-label lbl-examiner">② Examiner's Perspective</div>
+    <div class="examiner-box">
+      <div class="q-item"><div class="q-label">THEORETICAL Q1</div>Derive the expression for voltage across a capacitor in an RC circuit energized by a DC voltage step $V_s$.</div>
+      <div class="q-item"><div class="q-label">THEORETICAL Q2</div>What is meant by "time constant"? What is its physical significance for RC and RL circuits?</div>
+    </div>
+
+    <div class="section-label lbl-numerical">③ Numerical Problem</div>
+    <div class="numerical-box">
+      <p><strong>Problem:</strong> RC series circuit: $V_s = 100$ V, $R = 10$ kΩ, $C = 50$ μF, $v_C(0) = 0$. Find (a) τ, (b) $v_C$ at $t = \tau$, (c) $v_C$ at $t = 200$ ms.</p>
+      <div class="step"><div class="step-num">STEP 1 — Time constant</div>$$\tau = RC = 10\times10^3 \times 50\times10^{-6} = 0.5\text{ s} = 500\text{ ms}$$</div>
+      <div class="step"><div class="step-num">STEP 2 — At t = τ</div>$$v_C(\tau) = 100(1 - e^{-1}) = 100(1 - 0.368) = 63.2\text{ V}$$</div>
+      <div class="step"><div class="step-num">STEP 3 — At t = 200 ms</div>$$v_C(0.2) = 100\left(1 - e^{-0.2/0.5}\right) = 100(1-e^{-0.4}) = 100(1-0.6703) = 32.97\text{ V}$$</div>
+      <div class="result-box">✓ τ = 500 ms, v_C(τ) = 63.2 V, v_C(200ms) ≈ 33 V</div>
+    </div>
+
+    <div class="section-label lbl-pitfall">⚠ Key Pitfalls</div>
+    <div class="pitfall-box"><ul>
+      <li>$\tau = RC$ (not $R/C$ or $1/RC$); $\tau = L/R$ (not $LR$) — keep units consistent (seconds).</li>
+      <li>Initial condition $v_C(0^+) = v_C(0^-)$ (capacitor voltage cannot change instantaneously); $i_L(0^+) = i_L(0^-)$ (inductor current cannot change instantaneously).</li>
+      <li>Final value at $t \to \infty$: capacitor is open circuit (no current), inductor is short circuit (no voltage).</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- =========================================================
+     UNIT II
+     ========================================================= -->
+<div class="unit-header u2" id="unit2">
+  <div class="unit-tag">Unit II · 9 Hours · [T1]</div>
+  <h2>AC Circuit Analysis</h2>
+</div>
+
+<!-- 14. SINUSOIDAL -->
+<div class="topic" id="sinusoidal">
+  <div class="topic-header">
+    <span class="topic-num">14</span>
+    <h3>Representation of Sinusoidal Waveforms — Peak & RMS Values</h3>
+  </div>
+  <div class="topic-body">
+    <div class="section-label lbl-concept">① Concept Breakdown</div>
+    <div class="concept-box">
+      <p>The standard sinusoidal voltage:</p>
+      $$\boxed{v(t) = V_m \sin(\omega t + \phi)}$$
+      <p>where $V_m$ = peak (amplitude), $\omega = 2\pi f$ = angular frequency (rad/s), $\phi$ = phase angle.</p>
+      <table>
+        <tr><th>Quantity</th><th>Symbol</th><th>Formula</th><th>Meaning</th></tr>
+        <tr><td>Period</td><td>$T$</td><td>$T = 1/f = 2\pi/\omega$</td><td>Time for one complete cycle</td></tr>
+        <tr><td>Frequency</td><td>$f$</td><td>$f = 1/T$</td><td>Cycles per second (Hz)</td></tr>
+        <tr><td>Peak value</td><td>$V_m$</td><td>—</td><td>Maximum instantaneous value</td></tr>
+        <tr><td>Peak-to-peak</td><td>$V_{pp}$</td><td>$2V_m$</td><td>Full swing</td></tr>
+        <tr><td>RMS value</td><td>$V_{rms}$</td><td>$V_m/\sqrt{2}$</td><td>Effective (heat-equivalent) value</td></tr>
+        <tr><td>Average value</td><td>$V_{avg}$</td><td>$2V_m/\pi$</td><td>Average of half-cycle</td></tr>
+        <tr><td>Form factor</td><td>$k_f$</td><td>$V_{rms}/V_{avg} = \pi/(2\sqrt{2}) \approx 1.11$</td><td>Waveform shape indicator</td></tr>
+      </table>
+      <div class="analogy">💡 <em>Why RMS?</em> A 230 V RMS AC supply delivers the same average power to a resistor as a 230 V DC supply. RMS is the "DC-equivalent" value.</div>
+    </div>
+
+    <div class="section-label lbl-examiner">② Examiner's Perspective</div>
+    <div class="examiner-box">
+      <div class="q-item"><div class="q-label">THEORETICAL Q1</div>Define RMS value of an alternating current. Derive the RMS value of a sinusoidal current $i = I_m \sin\omega t$.</div>
+      <div class="q-item"><div class="q-label">THEORETICAL Q2</div>The mains supply in India is 230 V, 50 Hz. What is the peak voltage and write the complete expression $v(t)$?</div>
+    </div>
+
+    <div class="section-label lbl-numerical">③ Numerical Problem</div>
+    <div class="numerical-box">
+      <p><strong>Problem:</strong> $v(t) = 311\sin(314t + 30°)$ V. Find: (a) $V_{rms}$, (b) frequency $f$, (c) period $T$, (d) phase angle.</p>
+      <div class="step"><div class="step-num">From the expression</div>$V_m = 311$ V, $\omega = 314$ rad/s, $\phi = 30°$</div>
+      <div class="step"><div class="step-num">RMS value</div>$$V_{rms} = \frac{V_m}{\sqrt{2}} = \frac{311}{1.414} \approx 220\text{ V}$$</div>
+      <div class="step"><div class="step-num">Frequency</div>$$f = \frac{\omega}{2\pi} = \frac{314}{6.283} \approx 50\text{ Hz}$$</div>
+      <div class="step"><div class="step-num">Period</div>$$T = \frac{1}{f} = \frac{1}{50} = 20\text{ ms}$$</div>
+      <div class="result-box">✓ V_rms = 220 V, f = 50 Hz, T = 20 ms, φ = 30°</div>
+    </div>
+
+    <div class="section-label lbl-pitfall">⚠ Key Pitfalls</div>
+    <div class="pitfall-box"><ul>
+      <li>$V_{rms} = V_m/\sqrt{2}$ only for sinusoids — different for square waves or triangular waves.</li>
+      <li>Confusing $\omega$ (rad/s) with $f$ (Hz): $\omega = 2\pi f$.</li>
+      <li>Phase angle must be in consistent units — convert to radians when using $\sin(\omega t + \phi)$ if $\phi$ is in degrees.</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- 15. PHASOR -->
+<div class="topic" id="phasor">
+  <div class="topic-header">
+    <span class="topic-num">15</span>
+    <h3>Phasor Representation</h3>
+  </div>
+  <div class="topic-body">
+    <div class="section-label lbl-concept">① Concept Breakdown</div>
+    <div class="concept-box">
+      <p>A <strong>phasor</strong> is a complex number representation of a sinusoidal quantity. It captures magnitude and phase, eliminating the time variable.</p>
+      $$v(t) = V_m\sin(\omega t + \phi) \;\longleftrightarrow\; \mathbf{V} = V_{rms}\angle\phi \;=\; V_{rms}(\cos\phi + j\sin\phi)$$
+      <p>Phasors use RMS values by convention (in power calculations).</p>
+      <p><strong>Impedance</strong> generalizes resistance to AC:</p>
+      <table>
+        <tr><th>Element</th><th>Impedance Z</th><th>Phase shift</th></tr>
+        <tr><td>Resistor R</td><td>$Z_R = R$</td><td>V and I in phase (0°)</td></tr>
+        <tr><td>Inductor L</td><td>$Z_L = j\omega L = jX_L$</td><td>V leads I by 90°</td></tr>
+        <tr><td>Capacitor C</td><td>$Z_C = 1/(j\omega C) = -jX_C$</td><td>I leads V by 90°</td></tr>
+      </table>
+      <p>Ohm's Law in phasor domain: $\mathbf{V} = \mathbf{Z} \cdot \mathbf{I}$</p>
+      <div class="analogy">💡 <em>Memory trick:</em> "ELI the ICE man" — in an <strong>L</strong>: <strong>E</strong> (voltage) leads <strong>I</strong>; in a <strong>C</strong>: <strong>I</strong> leads <strong>E</strong>.</div>
+    </div>
+
+    <div class="section-label lbl-examiner">② Examiner's Perspective</div>
+    <div class="examiner-box">
+      <div class="q-item"><div class="q-label">THEORETICAL Q1</div>What is a phasor? How does phasor representation simplify AC circuit analysis?</div>
+      <div class="q-item"><div class="q-label">THEORETICAL Q2</div>Define inductive reactance $X_L$ and capacitive reactance $X_C$. How do they depend on frequency?</div>
+    </div>
+
+    <div class="section-label lbl-numerical">③ Numerical Problem</div>
+    <div class="numerical-box">
+      <p><strong>Problem:</strong> $v(t) = 100\sin(100\pi t + 45°)$ V applied to a 0.1 H inductor. Find $X_L$, phasor current, and $i(t)$.</p>
+      <div class="step"><div class="step-num">STEP 1 — ω and X_L</div>$$\omega = 100\pi \approx 314\text{ rad/s}, \quad X_L = \omega L = 314 \times 0.1 = 31.4\;\Omega$$</div>
+      <div class="step"><div class="step-num">STEP 2 — Phasor voltage (using peak or RMS; use RMS)</div>$$\mathbf{V} = \frac{100}{\sqrt{2}}\angle 45° = 70.71\angle 45°\text{ V}$$</div>
+      <div class="step"><div class="step-num">STEP 3 — Phasor current</div>$$\mathbf{I} = \frac{\mathbf{V}}{Z_L} = \frac{70.71\angle 45°}{31.4\angle 90°} = 2.25\angle{-45°}\text{ A}$$</div>
+      <div class="step"><div class="step-num">STEP 4 — Time domain</div>$$i(t) = 2.25\sqrt{2}\sin(100\pi t - 45°) = 3.18\sin(100\pi t - 45°)\text{ A}$$</div>
+      <div class="result-box">✓ X_L = 31.4 Ω, I_m = 3.18 A, lagging V by 90°</div>
+    </div>
+
+    <div class="section-label lbl-pitfall">⚠ Key Pitfalls</div>
+    <div class="pitfall-box"><ul>
+      <li>$Z_C = -jX_C = 1/(j\omega C)$ — the negative sign matters for phase calculations.</li>
+      <li>Mixing peak and RMS in phasor analysis — be consistent throughout a problem.</li>
+      <li>$X_L$ increases with frequency; $X_C$ decreases with frequency.</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- 16. AC POWER -->
+<div class="topic" id="power-ac">
+  <div class="topic-header">
+    <span class="topic-num">16</span>
+    <h3>AC Power: Real, Reactive, Apparent & Power Factor</h3>
+  </div>
+  <div class="topic-body">
+    <div class="section-label lbl-concept">① Concept Breakdown</div>
+    <div class="concept-box">
+      <p>In AC circuits, power takes three forms:</p>
+      <table>
+        <tr><th>Type</th><th>Symbol</th><th>Formula</th><th>Unit</th><th>Meaning</th></tr>
+        <tr><td><strong>Real (Active)</strong></td><td>$P$</td><td>$V_{rms}I_{rms}\cos\phi$</td><td>Watts (W)</td><td>Actual power consumed</td></tr>
+        <tr><td><strong>Reactive</strong></td><td>$Q$</td><td>$V_{rms}I_{rms}\sin\phi$</td><td>VAR</td><td>Power stored/released by L & C</td></tr>
+        <tr><td><strong>Apparent</strong></td><td>$S$</td><td>$V_{rms}I_{rms} = \sqrt{P^2+Q^2}$</td><td>VA</td><td>Total power supplied by source</td></tr>
+      </table>
+      <p><strong>Power Triangle:</strong> $S^2 = P^2 + Q^2$</p>
+      $$\boxed{\cos\phi = \frac{P}{S} = \text{Power Factor (PF)}}$$
+      <p>PF = 1 (resistive load, ideal); PF < 1 (reactive load). <strong>Lagging PF</strong>: inductive load ($\phi > 0$). <strong>Leading PF</strong>: capacitive load ($\phi < 0$).</p>
+      <div class="analogy">💡 <em>Analogy:</em> In a beer mug: $P$ = actual beer drunk, $Q$ = useless foam, $S$ = total mug content. PF = beer/(beer + foam).</div>
+    </div>
+
+    <div class="section-label lbl-examiner">② Examiner's Perspective</div>
+    <div class="examiner-box">
+      <div class="q-item"><div class="q-label">THEORETICAL Q1</div>Define power factor. Explain the significance of a low power factor in an industrial setting. How is power factor improvement achieved?</div>
+      <div class="q-item"><div class="q-label">THEORETICAL Q2</div>An inductive load draws 10 A at 0.8 pf lagging from a 230 V supply. Find P, Q, and S.</div>
+    </div>
+
+    <div class="section-label lbl-numerical">③ Numerical Problem</div>
+    <div class="numerical-box">
+      <p><strong>Problem:</strong> Load: 5 kW at 0.707 lagging pf, 230 V supply. Find (a) $S$, (b) $Q$, (c) current drawn, (d) capacitor required to improve pf to unity at 50 Hz.</p>
+      <div class="step"><div class="step-num">STEP 1 — Apparent power</div>$$S = \frac{P}{\cos\phi} = \frac{5000}{0.707} = 7071\text{ VA} = 7.07\text{ kVA}$$</div>
+      <div class="step"><div class="step-num">STEP 2 — Reactive power ($\phi = 45°$ since $\cos 45° = 0.707$)</div>$$Q = S\sin\phi = 7071 \times \sin 45° = 5000\text{ VAR} = 5\text{ kVAR}$$</div>
+      <div class="step"><div class="step-num">STEP 3 — Current</div>$$I = \frac{S}{V} = \frac{7071}{230} = 30.74\text{ A}$$</div>
+      <div class="step"><div class="step-num">STEP 4 — Capacitor for pf correction to unity</div>$$Q_C = Q = 5000\text{ VAR}, \quad C = \frac{Q_C}{\omega V^2} = \frac{5000}{2\pi \times 50 \times 230^2} = 300.6\;\mu\text{F}$$</div>
+      <div class="result-box">✓ S = 7.07 kVA, Q = 5 kVAR, I = 30.74 A, C ≈ 300 μF</div>
+    </div>
+
+    <div class="section-label lbl-pitfall">⚠ Key Pitfalls</div>
+    <div class="pitfall-box"><ul>
+      <li>Using peak values instead of RMS in power formulas — power formulas always use RMS.</li>
+      <li>Saying "capacitive load has lagging pf" — it's the opposite: capacitive → leading, inductive → lagging.</li>
+      <li>$Q$ for inductor is positive; for capacitor is negative — careful with sign when adding.</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- 17. RLC ANALYSIS -->
+<div class="topic" id="rlc-analysis">
+  <div class="topic-header">
+    <span class="topic-num">17</span>
+    <h3>Single-Phase AC Analysis: R, L, C, RL, RC, RLC (Series & Parallel)</h3>
+  </div>
+  <div class="topic-body">
+    <div class="section-label lbl-concept">① Concept Breakdown</div>
+    <div class="concept-box">
+      <p><strong>Series RLC:</strong></p>
+      $$Z = R + j(X_L - X_C) = R + j\left(\omega L - \frac{1}{\omega C}\right)$$
+      $$|Z| = \sqrt{R^2 + (X_L - X_C)^2}, \quad \phi = \tan^{-1}\!\left(\frac{X_L - X_C}{R}\right)$$
+      <table>
+        <tr><th>Condition</th><th>$X_L$ vs $X_C$</th><th>Circuit behaviour</th><th>PF</th></tr>
+        <tr><td>$X_L > X_C$</td><td>Inductive</td><td>V leads I</td><td>Lagging</td></tr>
+        <tr><td>$X_L < X_C$</td><td>Capacitive</td><td>I leads V</td><td>Leading</td></tr>
+        <tr><td>$X_L = X_C$</td><td>Resonance</td><td>Z = R (minimum)</td><td>Unity</td></tr>
+      </table>
+      <p><strong>Parallel RLC:</strong> Use admittance $Y = 1/Z$:</p>
+      $$Y = G + j(B_C - B_L) = \frac{1}{R} + j\left(\omega C - \frac{1}{\omega L}\right)$$
+      <p>where $G = 1/R$ (conductance), $B_L = 1/X_L$ (inductive susceptance), $B_C = 1/X_C$ (capacitive susceptance).</p>
+    </div>
+
+    <div class="section-label lbl-examiner">② Examiner's Perspective</div>
+    <div class="examiner-box">
+      <div class="q-item"><div class="q-label">THEORETICAL Q1</div>Draw the impedance triangle for a series RLC circuit and define impedance, reactance, and phase angle.</div>
+      <div class="q-item"><div class="q-label">THEORETICAL Q2</div>Compare series and parallel RLC circuits in terms of impedance and resonance conditions.</div>
+    </div>
+
+    <div class="section-label lbl-numerical">③ Numerical Problem</div>
+    <div class="numerical-box">
+      <p><strong>Problem:</strong> Series RLC: $R = 10\;\Omega$, $L = 50$ mH, $C = 200\;\mu$F, supply $v = 100\sin(200t)$. Find Z, I, and PF.</p>
+      <div class="step"><div class="step-num">STEP 1 — ω = 200 rad/s</div>
+      $$X_L = \omega L = 200 \times 0.05 = 10\;\Omega$$
+      $$X_C = \frac{1}{\omega C} = \frac{1}{200 \times 200\times10^{-6}} = 25\;\Omega$$</div>
+      <div class="step"><div class="step-num">STEP 2 — Impedance</div>$$Z = R + j(X_L - X_C) = 10 + j(10-25) = 10 - j15\;\Omega$$
+      $$|Z| = \sqrt{100 + 225} = \sqrt{325} \approx 18.03\;\Omega$$</div>
+      <div class="step"><div class="step-num">STEP 3 — Current (peak)</div>$$I_m = \frac{V_m}{|Z|} = \frac{100}{18.03} = 5.55\text{ A}$$</div>
+      <div class="step"><div class="step-num">STEP 4 — Phase and PF</div>$$\phi = \tan^{-1}\!\left(\frac{-15}{10}\right) = -56.3° \quad\text{(capacitive/leading)}$$
+      $$\text{PF} = \cos(56.3°) = 0.555\text{ leading}$$</div>
+      <div class="result-box">✓ |Z| = 18.03 Ω, I_m = 5.55 A, PF = 0.555 leading</div>
+    </div>
+
+    <div class="section-label lbl-pitfall">⚠ Key Pitfalls</div>
+    <div class="pitfall-box"><ul>
+      <li>Net reactance = $X_L - X_C$ (not $X_L + X_C$) — they oppose each other.</li>
+      <li>For parallel circuits, work with <em>admittance</em> ($Y = 1/Z$), not impedance — don't add impedances directly in parallel.</li>
+      <li>Phase angle sign: positive $\phi$ = inductive (lagging), negative $\phi$ = capacitive (leading).</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- 18. RESONANCE -->
+<div class="topic" id="resonance">
+  <div class="topic-header">
+    <span class="topic-num">18</span>
+    <h3>Resonance (Series & Parallel)</h3>
+  </div>
+  <div class="topic-body">
+    <div class="section-label lbl-concept">① Concept Breakdown</div>
+    <div class="concept-box">
+      <p>Resonance occurs when inductive and capacitive reactances cancel, leaving a purely resistive impedance.</p>
+      <p><strong>Resonant frequency:</strong></p>
+      $$\boxed{f_0 = \frac{1}{2\pi\sqrt{LC}}, \quad \omega_0 = \frac{1}{\sqrt{LC}}}$$
+      <table>
+        <tr><th>Property</th><th>Series Resonance</th><th>Parallel Resonance</th></tr>
+        <tr><td>Impedance at $f_0$</td><td>$Z = R$ (minimum)</td><td>$Z = L/RC$ (maximum)</td></tr>
+        <tr><td>Current at $f_0$</td><td>Maximum</td><td>Minimum</td></tr>
+        <tr><td>Quality Factor Q</td><td>$Q = \frac{\omega_0 L}{R} = \frac{1}{\omega_0 CR}$</td><td>$Q = R\sqrt{C/L}$</td></tr>
+        <tr><td>Bandwidth BW</td><td>$BW = f_0/Q = R/(2\pi L)$</td><td>$BW = f_0/Q$</td></tr>
+      </table>
+      <p>At resonance in series RLC: $V_L = V_C = QV_s$ (voltage magnification). This can be very large!</p>
+      <div class="analogy">💡 <em>Analogy:</em> A swing resonates at its natural frequency — small pushes create huge amplitude. Similarly, at resonance, small voltage can produce very large $V_L$ and $V_C$.</div>
+    </div>
+
+    <div class="section-label lbl-examiner">② Examiner's Perspective</div>
+    <div class="examiner-box">
+      <div class="q-item"><div class="q-label">THEORETICAL Q1</div>Define resonance in a series RLC circuit. Derive the expression for resonant frequency.</div>
+      <div class="q-item"><div class="q-label">THEORETICAL Q2</div>Define Q factor and bandwidth. What is the significance of a high Q factor in a tuning circuit?</div>
+    </div>
+
+    <div class="section-label lbl-numerical">③ Numerical Problem</div>
+    <div class="numerical-box">
+      <p><strong>Problem:</strong> Series RLC: R = 5 Ω, L = 0.1 H, C = 10 μF. Find (a) $f_0$, (b) Q, (c) bandwidth BW.</p>
+      <div class="step"><div class="step-num">STEP 1 — Resonant frequency</div>$$f_0 = \frac{1}{2\pi\sqrt{LC}} = \frac{1}{2\pi\sqrt{0.1 \times 10\times10^{-6}}} = \frac{1}{2\pi \times 10^{-3}} \approx 159.15\text{ Hz}$$</div>
+      <div class="step"><div class="step-num">STEP 2 — Q factor</div>$$Q = \frac{\omega_0 L}{R} = \frac{2\pi \times 159.15 \times 0.1}{5} = \frac{100}{5} = 20$$</div>
+      <div class="step"><div class="step-num">STEP 3 — Bandwidth</div>$$BW = \frac{f_0}{Q} = \frac{159.15}{20} = 7.96\text{ Hz}$$</div>
+      <div class="result-box">✓ f₀ ≈ 159 Hz, Q = 20, BW ≈ 7.96 Hz</div>
+    </div>
+
+    <div class="section-label lbl-pitfall">⚠ Key Pitfalls</div>
+    <div class="pitfall-box"><ul>
+      <li>Series resonance → minimum impedance (maximum current); parallel resonance → maximum impedance (minimum current). Students often flip these.</li>
+      <li>Voltage across L and C at series resonance = $Q \times V_s$, which can be dangerously large for high-Q circuits.</li>
+      <li>$f_0$ formula is the same for both series and parallel — but behaviour differs drastically.</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- 19. THREE PHASE -->
+<div class="topic" id="three-phase">
+  <div class="topic-header">
+    <span class="topic-num">19</span>
+    <h3>Three-Phase Balanced Circuits</h3>
+  </div>
+  <div class="topic-body">
+    <div class="section-label lbl-concept">① Concept Breakdown</div>
+    <div class="concept-box">
+      <p>Three-phase systems use three sinusoidal voltages, 120° apart:</p>
+      $$v_a = V_m\sin(\omega t), \quad v_b = V_m\sin(\omega t - 120°), \quad v_c = V_m\sin(\omega t - 240°)$$
+      <p>For a <strong>balanced system</strong>: all three phase voltages are equal in magnitude and 120° apart. The phasor sum = 0.</p>
+      <p><strong>Advantages over single-phase:</strong></p>
+      <ul>
+        <li>Constant power delivery (no pulsation)</li>
+        <li>More efficient power transmission</li>
+        <li>Self-starting rotating magnetic fields for motors</li>
+        <li>25% less conductor material needed than equivalent single-phase</li>
+      </ul>
+      <p><strong>Balanced 3-phase power:</strong></p>
+      $$\boxed{P_{3\phi} = \sqrt{3}\,V_L I_L \cos\phi, \quad Q_{3\phi} = \sqrt{3}\,V_L I_L \sin\phi, \quad S_{3\phi} = \sqrt{3}\,V_L I_L}$$
+    </div>
+
+    <div class="section-label lbl-examiner">② Examiner's Perspective</div>
+    <div class="examiner-box">
+      <div class="q-item"><div class="q-label">THEORETICAL Q1</div>What is a balanced three-phase system? Show that the sum of three balanced phase voltages is zero.</div>
+      <div class="q-item"><div class="q-label">THEORETICAL Q2</div>A balanced 3-phase load draws 30 kW at 0.8 pf lagging from a 400 V (line) supply. Find line current.</div>
+    </div>
+
+    <div class="section-label lbl-numerical">③ Numerical Problem</div>
+    <div class="numerical-box">
+      <p><strong>Problem:</strong> Balanced star-connected load: $Z = 10 + j6\;\Omega$ per phase, line voltage = 415 V. Find (a) phase voltage, (b) phase current, (c) total power.</p>
+      <div class="step"><div class="step-num">STEP 1 — Phase voltage (star)</div>$$V_{ph} = \frac{V_L}{\sqrt{3}} = \frac{415}{1.732} = 239.6\text{ V}$$</div>
+      <div class="step"><div class="step-num">STEP 2 — Impedance magnitude</div>$$|Z| = \sqrt{10^2 + 6^2} = \sqrt{136} = 11.66\;\Omega$$</div>
+      <div class="step"><div class="step-num">STEP 3 — Phase current (= line current in star)</div>$$I_{ph} = I_L = \frac{V_{ph}}{|Z|} = \frac{239.6}{11.66} = 20.55\text{ A}$$</div>
+      <div class="step"><div class="step-num">STEP 4 — PF and power</div>$$\cos\phi = \frac{R}{|Z|} = \frac{10}{11.66} = 0.858$$
+      $$P = \sqrt{3}V_L I_L\cos\phi = 1.732 \times 415 \times 20.55 \times 0.858 = 12.65\text{ kW}$$</div>
+      <div class="result-box">✓ V_ph = 239.6 V, I_L = 20.55 A, P ≈ 12.65 kW</div>
+    </div>
+
+    <div class="section-label lbl-pitfall">⚠ Key Pitfalls</div>
+    <div class="pitfall-box"><ul>
+      <li>Forgetting the $\sqrt{3}$ factor when converting between line and phase quantities.</li>
+      <li>The 3-phase power formula uses line voltage $V_L$ and line current $I_L$, always — not phase values.</li>
+      <li>In a balanced system, neutral current = 0 (no need for a neutral wire carrying current).</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- 20. STAR DELTA -->
+<div class="topic" id="star-delta">
+  <div class="topic-header">
+    <span class="topic-num">20</span>
+    <h3>Voltage & Current Relations in Star (Y) & Delta (Δ) Connections</h3>
+  </div>
+  <div class="topic-body">
+    <div class="section-label lbl-concept">① Concept Breakdown</div>
+    <div class="concept-box">
+      <table>
+        <tr><th>Quantity</th><th>Star (Y) Connection</th><th>Delta (Δ) Connection</th></tr>
+        <tr><td><strong>Line voltage $V_L$</strong></td><td>$V_L = \sqrt{3}\,V_{ph}$</td><td>$V_L = V_{ph}$</td></tr>
+        <tr><td><strong>Line current $I_L$</strong></td><td>$I_L = I_{ph}$</td><td>$I_L = \sqrt{3}\,I_{ph}$</td></tr>
+        <tr><td><strong>Phase relationship</strong></td><td>$V_L$ leads $V_{ph}$ by 30°</td><td>$I_L$ lags $I_{ph}$ by 30°</td></tr>
+        <tr><td><strong>Neutral wire</strong></td><td>Present (4-wire system)</td><td>No neutral</td></tr>
+        <tr><td><strong>Use case</strong></td><td>Transmission lines, generators</td><td>High-voltage distribution, motors</td></tr>
+      </table>
+      <p><strong>Power formula</strong> is identical for both connections:</p>
+      $$P = \sqrt{3}\,V_L I_L\cos\phi \quad \text{(always valid for 3-phase balanced)}$$
+      <div class="analogy">💡 <em>Key memory:</em> In Star: voltages multiply by $\sqrt{3}$ going line→line. In Delta: currents multiply by $\sqrt{3}$ going line. "Star stretches voltage; Delta doubles current."</div>
+    </div>
+
+    <div class="section-label lbl-examiner">② Examiner's Perspective</div>
+    <div class="examiner-box">
+      <div class="q-item"><div class="q-label">THEORETICAL Q1</div>Compare star and delta connections. Derive the relationship between line and phase quantities for each.</div>
+      <div class="q-item"><div class="q-label">THEORETICAL Q2</div>A delta-connected load has 10 Ω per phase. A star-connected load has 10/3 Ω per phase. Show they are equivalent when connected to the same supply.</div>
+      <div class="q-item"><div class="q-label">THEORETICAL Q3</div>Why is the star connection preferred for transmission lines while delta is preferred for high-power motors?</div>
+    </div>
+
+    <div class="section-label lbl-numerical">③ Numerical Problem</div>
+    <div class="numerical-box">
+      <p><strong>Problem:</strong> Delta-connected balanced load: Z = 30∠36.87° Ω per phase, line voltage = 400 V. Find line current and total power.</p>
+      <div class="step"><div class="step-num">STEP 1 — Phase voltage (delta: V_ph = V_L)</div>$$V_{ph} = V_L = 400\text{ V}$$</div>
+      <div class="step"><div class="step-num">STEP 2 — Phase current</div>$$I_{ph} = \frac{V_{ph}}{|Z|} = \frac{400}{30} = 13.33\text{ A}$$</div>
+      <div class="step"><div class="step-num">STEP 3 — Line current</div>$$I_L = \sqrt{3}\,I_{ph} = 1.732 \times 13.33 = 23.09\text{ A}$$</div>
+      <div class="step"><div class="step-num">STEP 4 — Power ($\phi = 36.87°$, $\cos\phi = 0.8$)</div>$$P = \sqrt{3} \times 400 \times 23.09 \times 0.8 = 12.8\text{ kW}$$</div>
+      <div class="result-box">✓ I_ph = 13.33 A, I_L = 23.09 A, P = 12.8 kW</div>
+    </div>
+
+    <div class="section-label lbl-pitfall">⚠ Key Pitfalls</div>
+    <div class="pitfall-box"><ul>
+      <li>In <em>delta</em>: $V_{ph} = V_L$ (NOT divided by $\sqrt{3}$) — the most common exam error.</li>
+      <li>In <em>star</em>: $I_{ph} = I_L$ (NOT multiplied by $\sqrt{3}$).</li>
+      <li>Always specify whether given voltage is line or phase, and whether current is line or phase.</li>
+    </ul></div>
+  </div>
+</div>
+
+
+<!-- =========================================================
+     FORMULA VAULT
+     ========================================================= -->
+<div class="vault" id="vault">
+  <div class="vault-header">
+    <h2>⚡ Formula & Quick Reference Vault</h2>
+    <p>Every theorem, formula, and constant from the entire guide — aggregated for rapid revision.</p>
+  </div>
+  <div class="vault-body">
+
+    <div class="vault-section">
+      <div class="vault-section-title">Passive Components</div>
+      <div class="formula-grid">
+        <div class="formula-item"><div class="formula-name">Resistor V–I</div><div class="formula-eq">$v = iR$</div></div>
+        <div class="formula-item"><div class="formula-name">Inductor V–I</div><div class="formula-eq">$v = L\,di/dt$</div></div>
+        <div class="formula-item"><div class="formula-name">Capacitor V–I</div><div class="formula-eq">$i = C\,dv/dt$</div></div>
+        <div class="formula-item"><div class="formula-name">Energy in L</div><div class="formula-eq">$W_L = \tfrac{1}{2}LI^2$</div></div>
+        <div class="formula-item"><div class="formula-name">Energy in C</div><div class="formula-eq">$W_C = \tfrac{1}{2}CV^2$</div></div>
+      </div>
+    </div>
+
+    <div class="vault-section">
+      <div class="vault-section-title">Ohm's Law & Power</div>
+      <div class="formula-grid">
+        <div class="formula-item"><div class="formula-name">Ohm's Law</div><div class="formula-eq">$V = IR$</div></div>
+        <div class="formula-item"><div class="formula-name">Power (3 forms)</div><div class="formula-eq">$P = VI = I^2R = V^2/R$</div></div>
+        <div class="formula-item"><div class="formula-name">Energy</div><div class="formula-eq">$W = P \cdot t$ (J)</div></div>
+        <div class="formula-item"><div class="formula-name">Conductance</div><div class="formula-eq">$G = 1/R$ (S)</div></div>
+      </div>
+    </div>
+
+    <div class="vault-section">
+      <div class="vault-section-title">Temperature & Resistance</div>
+      <div class="formula-grid">
+        <div class="formula-item"><div class="formula-name">Temp coefficient</div><div class="formula-eq">$R_T = R_0[1+\alpha(T-T_0)]$</div></div>
+        <div class="formula-item"><div class="formula-name">Cu: α at 20°C</div><div class="formula-eq">$\alpha = 0.00393\,/°C$</div></div>
+      </div>
+    </div>
+
+    <div class="vault-section">
+      <div class="vault-section-title">Series & Parallel Circuits</div>
+      <div class="formula-grid">
+        <div class="formula-item"><div class="formula-name">Series R_eq</div><div class="formula-eq">$R_{eq} = R_1+R_2+\cdots$</div></div>
+        <div class="formula-item"><div class="formula-name">Parallel R_eq</div><div class="formula-eq">$1/R_{eq} = 1/R_1+1/R_2+\cdots$</div></div>
+        <div class="formula-item"><div class="formula-name">Two in parallel</div><div class="formula-eq">$R_{eq} = R_1R_2/(R_1+R_2)$</div></div>
+        <div class="formula-item"><div class="formula-name">Voltage divider</div><div class="formula-eq">$V_x = V_s \cdot R_x/R_{tot}$</div></div>
+        <div class="formula-item"><div class="formula-name">Current divider</div><div class="formula-eq">$I_1 = I_s \cdot R_2/(R_1+R_2)$</div></div>
+      </div>
+    </div>
+
+    <div class="vault-section">
+      <div class="vault-section-title">Kirchhoff's Laws</div>
+      <div class="formula-grid">
+        <div class="formula-item"><div class="formula-name">KCL</div><div class="formula-eq">$\sum I_{in} = \sum I_{out}$</div></div>
+        <div class="formula-item"><div class="formula-name">KVL</div><div class="formula-eq">$\sum V = 0$ (closed loop)</div></div>
+        <div class="formula-item"><div class="formula-name">Independent KCL eqs</div><div class="formula-eq">$N - 1$ (N = node count)</div></div>
+        <div class="formula-item"><div class="formula-name">Mesh count</div><div class="formula-eq">$L = B - N + 1$</div></div>
+      </div>
+    </div>
+
+    <div class="vault-section">
+      <div class="vault-section-title">Source Transformation</div>
+      <div class="formula-grid">
+        <div class="formula-item"><div class="formula-name">V→I source</div><div class="formula-eq">$I_s = V_s/R$, R in parallel</div></div>
+        <div class="formula-item"><div class="formula-name">I→V source</div><div class="formula-eq">$V_s = I_s \cdot R$, R in series</div></div>
+      </div>
+    </div>
+
+    <div class="vault-section">
+      <div class="vault-section-title">Delta–Star Transformation</div>
+      <div class="formula-grid">
+        <div class="formula-item"><div class="formula-name">Δ→Y (general)</div><div class="formula-eq">$R_a = R_{ab}R_{ca}/\Sigma$</div></div>
+        <div class="formula-item"><div class="formula-name">Sum Σ</div><div class="formula-eq">$\Sigma = R_{ab}+R_{bc}+R_{ca}$</div></div>
+        <div class="formula-item"><div class="formula-name">Balanced Δ→Y</div><div class="formula-eq">$R_Y = R_\Delta/3$</div></div>
+        <div class="formula-item"><div class="formula-name">Balanced Y→Δ</div><div class="formula-eq">$R_\Delta = 3R_Y$</div></div>
+      </div>
+    </div>
+
+    <div class="vault-section">
+      <div class="vault-section-title">Network Theorems</div>
+      <div class="formula-grid">
+        <div class="formula-item"><div class="formula-name">Thevenin voltage</div><div class="formula-eq">$V_{th} = V_{OC}$</div></div>
+        <div class="formula-item"><div class="formula-name">Norton current</div><div class="formula-eq">$I_N = I_{SC} = V_{th}/R_{th}$</div></div>
+        <div class="formula-item"><div class="formula-name">Load current</div><div class="formula-eq">$I_L = V_{th}/(R_{th}+R_L)$</div></div>
+        <div class="formula-item"><div class="formula-name">MPT condition</div><div class="formula-eq">$R_L = R_{th}$</div></div>
+        <div class="formula-item"><div class="formula-name">Max power</div><div class="formula-eq">$P_{max} = V_{th}^2/(4R_{th})$</div></div>
+      </div>
+    </div>
+
+    <div class="vault-section">
+      <div class="vault-section-title">First-Order Transients</div>
+      <div class="formula-grid">
+        <div class="formula-item"><div class="formula-name">General response</div><div class="formula-eq">$x(t) = x(\infty)+[x(0^+)-x(\infty)]e^{-t/\tau}$</div></div>
+        <div class="formula-item"><div class="formula-name">RC time constant</div><div class="formula-eq">$\tau = RC$</div></div>
+        <div class="formula-item"><div class="formula-name">RL time constant</div><div class="formula-eq">$\tau = L/R$</div></div>
+        <div class="formula-item"><div class="formula-name">RC charging</div><div class="formula-eq">$v_C(t) = V_s(1-e^{-t/RC})$</div></div>
+        <div class="formula-item"><div class="formula-name">RL energizing</div><div class="formula-eq">$i_L(t) = (V_s/R)(1-e^{-Rt/L})$</div></div>
+        <div class="formula-item"><div class="formula-name">63.2% reached at</div><div class="formula-eq">$t = \tau$</div></div>
+        <div class="formula-item"><div class="formula-name">Settled at</div><div class="formula-eq">$t \approx 5\tau$ (99.3%)</div></div>
+      </div>
+    </div>
+
+    <div class="vault-section">
+      <div class="vault-section-title">Sinusoidal Waveforms</div>
+      <div class="formula-grid">
+        <div class="formula-item"><div class="formula-name">Sinusoidal voltage</div><div class="formula-eq">$v = V_m\sin(\omega t+\phi)$</div></div>
+        <div class="formula-item"><div class="formula-name">Angular frequency</div><div class="formula-eq">$\omega = 2\pi f = 2\pi/T$</div></div>
+        <div class="formula-item"><div class="formula-name">RMS (sinusoid)</div><div class="formula-eq">$V_{rms} = V_m/\sqrt{2}$</div></div>
+        <div class="formula-item"><div class="formula-name">Average (half-cycle)</div><div class="formula-eq">$V_{avg} = 2V_m/\pi$</div></div>
+        <div class="formula-item"><div class="formula-name">Form factor</div><div class="formula-eq">$k_f = \pi/(2\sqrt{2}) \approx 1.11$</div></div>
+        <div class="formula-item"><div class="formula-name">Period</div><div class="formula-eq">$T = 1/f$</div></div>
+      </div>
+    </div>
+
+    <div class="vault-section">
+      <div class="vault-section-title">Impedance (Phasor Domain)</div>
+      <div class="formula-grid">
+        <div class="formula-item"><div class="formula-name">Resistor Z</div><div class="formula-eq">$Z_R = R$</div></div>
+        <div class="formula-item"><div class="formula-name">Inductor Z</div><div class="formula-eq">$Z_L = j\omega L = jX_L$</div></div>
+        <div class="formula-item"><div class="formula-name">Capacitor Z</div><div class="formula-eq">$Z_C = 1/(j\omega C) = -jX_C$</div></div>
+        <div class="formula-item"><div class="formula-name">Inductive reactance</div><div class="formula-eq">$X_L = \omega L$</div></div>
+        <div class="formula-item"><div class="formula-name">Capacitive reactance</div><div class="formula-eq">$X_C = 1/(\omega C)$</div></div>
+        <div class="formula-item"><div class="formula-name">Series RLC impedance</div><div class="formula-eq">$Z = R+j(X_L-X_C)$</div></div>
+        <div class="formula-item"><div class="formula-name">Phasor Ohm's Law</div><div class="formula-eq">$\mathbf{V} = \mathbf{Z}\mathbf{I}$</div></div>
+        <div class="formula-item"><div class="formula-name">Phase angle</div><div class="formula-eq">$\phi = \tan^{-1}\!\left(\frac{X_L-X_C}{R}\right)$</div></div>
+      </div>
+    </div>
+
+    <div class="vault-section">
+      <div class="vault-section-title">AC Power</div>
+      <div class="formula-grid">
+        <div class="formula-item"><div class="formula-name">Real power</div><div class="formula-eq">$P = V_{rms}I_{rms}\cos\phi$ (W)</div></div>
+        <div class="formula-item"><div class="formula-name">Reactive power</div><div class="formula-eq">$Q = V_{rms}I_{rms}\sin\phi$ (VAR)</div></div>
+        <div class="formula-item"><div class="formula-name">Apparent power</div><div class="formula-eq">$S = V_{rms}I_{rms}$ (VA)</div></div>
+        <div class="formula-item"><div class="formula-name">Power triangle</div><div class="formula-eq">$S^2 = P^2 + Q^2$</div></div>
+        <div class="formula-item"><div class="formula-name">Power factor</div><div class="formula-eq">$PF = \cos\phi = P/S$</div></div>
+        <div class="formula-item"><div class="formula-name">PF correction cap</div><div class="formula-eq">$C = Q/(\omega V^2)$</div></div>
+      </div>
+    </div>
+
+    <div class="vault-section">
+      <div class="vault-section-title">Resonance</div>
+      <div class="formula-grid">
+        <div class="formula-item"><div class="formula-name">Resonant frequency</div><div class="formula-eq">$f_0 = 1/(2\pi\sqrt{LC})$</div></div>
+        <div class="formula-item"><div class="formula-name">ω₀</div><div class="formula-eq">$\omega_0 = 1/\sqrt{LC}$</div></div>
+        <div class="formula-item"><div class="formula-name">Q factor (series)</div><div class="formula-eq">$Q = \omega_0L/R = 1/(\omega_0CR)$</div></div>
+        <div class="formula-item"><div class="formula-name">Bandwidth</div><div class="formula-eq">$BW = f_0/Q = R/(2\pi L)$</div></div>
+        <div class="formula-item"><div class="formula-name">V across L or C at res.</div><div class="formula-eq">$V_{L,C} = Q \cdot V_s$</div></div>
+        <div class="formula-item"><div class="formula-name">Series Z at resonance</div><div class="formula-eq">$Z_{min} = R$</div></div>
+        <div class="formula-item"><div class="formula-name">Parallel Z at resonance</div><div class="formula-eq">$Z_{max} = L/(RC)$</div></div>
+      </div>
+    </div>
+
+    <div class="vault-section">
+      <div class="vault-section-title">Three-Phase Circuits</div>
+      <div class="formula-grid">
+        <div class="formula-item"><div class="formula-name">Star: V_L vs V_ph</div><div class="formula-eq">$V_L = \sqrt{3}\,V_{ph}$</div></div>
+        <div class="formula-item"><div class="formula-name">Star: I_L vs I_ph</div><div class="formula-eq">$I_L = I_{ph}$</div></div>
+        <div class="formula-item"><div class="formula-name">Delta: V_L vs V_ph</div><div class="formula-eq">$V_L = V_{ph}$</div></div>
+        <div class="formula-item"><div class="formula-name">Delta: I_L vs I_ph</div><div class="formula-eq">$I_L = \sqrt{3}\,I_{ph}$</div></div>
+        <div class="formula-item"><div class="formula-name">3-phase real power</div><div class="formula-eq">$P = \sqrt{3}\,V_L I_L\cos\phi$</div></div>
+        <div class="formula-item"><div class="formula-name">3-phase reactive power</div><div class="formula-eq">$Q = \sqrt{3}\,V_L I_L\sin\phi$</div></div>
+        <div class="formula-item"><div class="formula-name">3-phase apparent power</div><div class="formula-eq">$S = \sqrt{3}\,V_L I_L$</div></div>
+        <div class="formula-item"><div class="formula-name">Phase voltage in star</div><div class="formula-eq">$V_{ph} = V_L/\sqrt{3}$</div></div>
+      </div>
+    </div>
+
+    <div class="vault-section">
+      <div class="vault-section-title">Key Constants & Identities</div>
+      <div class="formula-grid">
+        <div class="formula-item"><div class="formula-name">√2</div><div class="formula-eq">$\approx 1.4142$</div></div>
+        <div class="formula-item"><div class="formula-name">√3</div><div class="formula-eq">$\approx 1.7321$</div></div>
+        <div class="formula-item"><div class="formula-name">1/√2</div><div class="formula-eq">$\approx 0.7071$</div></div>
+        <div class="formula-item"><div class="formula-name">e⁻¹</div><div class="formula-eq">$\approx 0.3679$</div></div>
+        <div class="formula-item"><div class="formula-name">India mains</div><div class="formula-eq">$230\text{ V RMS},\;50\text{ Hz}$</div></div>
+        <div class="formula-item"><div class="formula-name">India 3-phase line V</div><div class="formula-eq">$415\text{ V (line)}$</div></div>
+        <div class="formula-item"><div class="formula-name">ω at 50 Hz</div><div class="formula-eq">$\omega = 100\pi \approx 314\text{ rad/s}$</div></div>
+        <div class="formula-item"><div class="formula-name">ELI the ICE man</div><div class="formula-eq">L: E leads I · C: I leads E</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</main>
+</div>
+
+<script>
+// Highlight active TOC item on scroll
+const sections = document.querySelectorAll('[id]');
+const tocLinks = document.querySelectorAll('.toc-item');
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      tocLinks.forEach(l=>{
+        l.style.borderLeftColor = 'transparent';
+        l.style.color = '';
+      });
+      const active = document.querySelector(`.toc-item[href="#${e.target.id}"]`);
+      if(active){ active.style.borderLeftColor = '#e8b86d'; active.style.color = '#e8b86d'; }
+    }
+  });
+}, {threshold: 0.3});
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
